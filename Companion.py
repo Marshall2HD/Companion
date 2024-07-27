@@ -31,6 +31,10 @@ import profanity_check as pc
 import ollama
 import tiktoken
 import openai
+from dotenv import load_dotenv
+
+# Loads .env
+load_dotenv()
 
 # The running name of the program. Must be global and NEVER changing.
 
@@ -394,7 +398,7 @@ def GetSteering(bot,input_text):
     # No txt file found. No prompts available
     return None
 
-# Read channel list and set bot persona
+# channel list and set bot persona
 
 def GetCompanionPersona(channel,nsfw=False,Welcome=False):
     # Get the list of channels and the bot name that is allowed in a given channel
@@ -663,8 +667,7 @@ def GetBabble(text):
 
         # Read token and API, already verified at program start.
 
-        tfile=RunningName+'.tokens'
-        TOKEN,AIAPI=ReadFile(tfile).strip().split('\n')
+        AIAPI = os.getenv('OPENAI_API_KEY')
 
         # Process API for the request
 
@@ -1119,24 +1122,20 @@ async def on_member_join(member):
 async def on_member_remove(member):
     ErrorLog(f"OMR: {member}")
 
-# starts the bot with the corresponding token
+# Starts the bot
 
-if __name__=='__main__':
-    tfile=RunningName+'.tokens'
-    if os.path.exists(tfile):
-        try:
-            TOKEN,AIAPI=ReadFile(tfile).strip().split('\n')
-        except Exception as err:
-            print(f"The Discord token must be the first line of {tfile}")
-            print(f"The OpenAI API must be the second line of {tfile}")
-            sys.exit(1)
+if __name__ == '__main__':
+    # Retrieve tokens from environment variables
+    TOKEN = os.getenv('DISCORD_TOKEN')
 
-    else:
-        print(f"Missing token file: {tfile}")
+    # Check if bot token is provided
+    if not TOKEN:
+        print("The Discord token must be configured in the .env file.")
         sys.exit(1)
 
+    # starts the bot with the corresponding token
     try:
-        client.run(TOKEN,log_handler=None)
+        client.run(TOKEN, log_handler=None)
     except Exception as err:
         ErrorLog(f"Broken MAIN: {err}")
 
