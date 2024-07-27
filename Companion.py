@@ -1138,4 +1138,3 @@ if __name__ == '__main__':
         client.run(TOKEN, log_handler=None)
     except Exception as err:
         ErrorLog(f"Broken MAIN: {err}")
-
