@@ -34,7 +34,7 @@ conversation. With Companion, customization is effortless, allowing you to tailo
 suit your server's unique vibe without ever missing a beat.
 
 # How to install
-[Installing](installing.md)
+[Installing](Installing.md)
 
 ### Files
 

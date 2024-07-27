@@ -42,8 +42,8 @@ RunningName=sys.argv[0]
 
 # Persona base folder. This is where all personas are stored.
 
-CompanionStorage='/home/Companion/Personas'
-LoggingDir='/home/Companion/Logs'
+CompanionStorage='./Personas'
+LoggingDir='./Logs'
 
 # Global lock for managing sequential access to the AI api and file safety.
 
